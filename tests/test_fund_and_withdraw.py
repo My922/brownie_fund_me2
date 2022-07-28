@@ -6,20 +6,11 @@ import pytest
 
 
 def test_fund_and_withdraw():
-    # fund_me = deploy_fund_me()
-    # tx1 = fund()
-    # assert tx1 == fund_me.getEntranceFee() + 100
-    # tx2 = withdraw()
-    # assert tx2 == 0
-    account = get_account()
     fund_me = deploy_fund_me()
-    entrance_fee = fund_me.getEntranceFee() + 100
-    tx = fund_me.fund({"from": account, "value": entrance_fee})
-    tx.wait(1)
-    assert fund_me.addressToAmountFunded(account.address) == entrance_fee
-    tx2 = fund_me.withdraw({"from": account})
-    tx2.wait(1)
-    assert fund_me.addressToAmountFunded(account.address) == 0
+    tx1 = fund()
+    assert tx1 == fund_me.getEntranceFee() + 100
+    tx2 = withdraw()
+    assert tx2 == 0
 
 
 def test_only_owner_can_withdraw():
