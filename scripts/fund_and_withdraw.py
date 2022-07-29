@@ -1,11 +1,16 @@
 from brownie import FundMe
 from scripts.helpful_scripts import get_account
+from scripts.deploy import deploy_fund_me
 
 
 def fund():
-    fund_me = FundMe[-1]
+    if len(FundMe) <= 0:
+        fund_me = deploy_fund_me()
+    else:
+        fund_me = FundMe[-1]
     account = get_account()
-    entrance_fee = fund_me.getEntranceFee()
+    entrance_fee = fund_me.getEntranceFee() + 100
+    print(entrance_fee)
     print(f"The current entrance fee is: {entrance_fee}")
     print("Funding...")
     tx = fund_me.fund({"from": account, "value": entrance_fee})
